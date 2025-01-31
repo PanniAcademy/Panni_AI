@@ -1,10 +1,10 @@
 const CACHE_NAME = "panni-ai-cache-v1";
 const urlsToCache = [
-    "/",
-    "/index.html",
-    "/manifest.json",
-    "/Images/android-chrome-192x192.png",
-    "/Images/android-chrome-512x512.png"
+    "./",
+    "./index.html",
+    "./manifest.json",
+    "./Images/android-chrome-192x192.png",
+    "./Images/android-chrome-512x512.png"
 
 ];
 
