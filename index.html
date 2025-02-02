@@ -138,5 +138,28 @@ body {
         .catch((err) => console.error("Service Worker Error!", err));
     }
 </script>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDzACRNe7s6Kk33xDDJizS8Q8N2UgF9frM",
+    authDomain: "panni-academy-c8629.firebaseapp.com",
+    projectId: "panni-academy-c8629",
+    storageBucket: "panni-academy-c8629.firebasestorage.app",
+    messagingSenderId: "30707262211",
+    appId: "1:30707262211:web:ff26257259ad5a1b087f36",
+    measurementId: "G-57DXCLY0K4"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+    </script>
 </body>
 </html>
