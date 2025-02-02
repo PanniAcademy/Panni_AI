@@ -1,3 +1,18 @@
+// Request permission to receive notifications
+messaging.requestPermission()
+  .then(() => {
+    console.log('Notification permission granted.');
+    // Get the registration token
+    return messaging.getToken();
+  })
+  .then((token) => {
+    console.log('FCM Token:', token);
+    // TODO: Send the token to your server to store it and send push notifications later.
+  })
+  .catch((err) => {
+    console.error('Unable to get permission to notify.', err);
+  });
+
 const CACHE_NAME = "panni-ai-cache-v1";
 const urlsToCache = [
     "./",
