@@ -51,8 +51,16 @@
         ::-webkit-scrollbar-track {
             background: #0D1117;
         }
-        .console {
-            color: #3B82F6;
+        #activate-voice {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -105,9 +113,7 @@
     </div>
 
     <!-- Button to Activate Voice Recognition -->
-    <button id="activate-voice" style="position: fixed; bottom: 20px; right: 20px; padding: 10px; background-color: #3B82F6; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        Activate Voice Command
-    </button>
+    <button id="activate-voice">Activate Voice Command</button>
 
     <!-- Voice Command Script -->
     <script>
@@ -116,7 +122,7 @@
         activateBtn.addEventListener('click', () => {
             // Request microphone permission
             navigator.mediaDevices.getUserMedia({ audio: true })
-                .then((stream) => {
+                .then(() => {
                     console.log("Microphone access granted.");
 
                     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
@@ -146,5 +152,4 @@
         });
     </script>
 </body>
-
 </html>
