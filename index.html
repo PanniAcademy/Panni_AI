@@ -57,7 +57,6 @@
     </style>
 </head>
 <body>
-
     <div class="webchat" id="chat-container">
         <iframe
             id="panni-chat"
@@ -105,37 +104,47 @@
         ></iframe>
     </div>
 
+    <!-- Button to Activate Voice Recognition -->
+    <button id="activate-voice" style="position: fixed; bottom: 20px; right: 20px; padding: 10px; background-color: #3B82F6; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Activate Voice Command
+    </button>
+
     <!-- Voice Command Script -->
     <script>
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'en-US';
-        recognition.continuous = true;
+        const activateBtn = document.getElementById('activate-voice');
 
-        recognition.onresult = (event) => {
-            const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
-            console.log("Voice Detected:", transcript);  // For debugging
+        activateBtn.addEventListener('click', () => {
+            // Request microphone permission
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then((stream) => {
+                    console.log("Microphone access granted.");
 
-            if (transcript.includes("hey panni")) {
-                const chatFrame = document.getElementById("panni-chat");
-                chatFrame.contentWindow.postMessage({ type: "openChat" }, "*"); // Send message to iframe to open chat
-            }
-        };
+                    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                    recognition.lang = 'en-US';
+                    recognition.continuous = true;
 
-        recognition.onerror = (event) => {
-            console.error("Speech Recognition Error:", event.error);
-        };
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+                        console.log("Voice Detected:", transcript);  // For debugging
 
-        recognition.start();
+                        if (transcript.includes("hey panni")) {
+                            const chatFrame = document.getElementById("panni-chat");
+                            chatFrame.contentWindow.postMessage({ type: "openChat" }, "*"); // Trigger chatbot
+                        }
+                    };
+
+                    recognition.onerror = (event) => {
+                        console.error("Speech Recognition Error:", event.error);
+                    };
+
+                    recognition.start();
+                })
+                .catch((err) => {
+                    console.error("Microphone access denied:", err);
+                    alert("Microphone access is required to use voice commands. Please allow it.");
+                });
+        });
     </script>
-
-    <!-- Service Worker Registration -->
-    <script>
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("./sw.js")
-                .then((reg) => console.log("Service Worker Registered!", reg))
-                .catch((err) => console.error("Service Worker Error!", err));
-        }
-    </script>
-
 </body>
+
 </html>
